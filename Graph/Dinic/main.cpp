@@ -39,7 +39,7 @@ struct Edge {
 Edge E[100000];
 vi g[1000];
 int dist[1000], q[1000], it[10000];
-int En, n, S, T, m, B, D;
+int En, n, S, T, m, B, D, N;
 
 void addEdge(int u, int v, int c){
 	E[En++] = Edge(u, v, c);
@@ -49,7 +49,7 @@ void addEdge(int u, int v, int c){
 }
        
 bool Bfs() {
-	for (int i = 0; i < 2 * n + 2; ++i) 
+	for (int i = 0; i < N; ++i) 
 		dist[i] = -1;
 
 
@@ -93,7 +93,7 @@ int Dfs(int v, int flow) {
 int maxFlow() {
 	int flow = 0;
 	while (Bfs()) {
-		memset(it, 0, sizeof(it[0]) * (2 * n + 2));
+		memset(it, 0, sizeof(it[0]) * N);
 		for(;;) {
 			int push = Dfs(S, (int)1e9);
 			if (!push) break;
@@ -105,10 +105,10 @@ int maxFlow() {
 void Solve() {
 
 	scanf("%d", &n);
+	N = 2 * n + 2;
 
-	for (int i = 0; i < 2 * n + 2; ++i) 
+	for (int i = 0; i < N; ++i) 
 		g[i].clear();
-
 	En = 0;
 
 	for (int i = 0; i < n; ++i) {
