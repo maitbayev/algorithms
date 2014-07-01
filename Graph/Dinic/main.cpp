@@ -28,6 +28,9 @@ using namespace std;
 #else 
 	#define I64 "%lld"
 #endif
+const int maxnodes = 2500; 
+const int maxedges = 2000000;
+const int inf = (int)1e9; 
 struct Edge {
 	int from, to, f, c;
 	Edge(){}
@@ -36,9 +39,9 @@ struct Edge {
 	}
 };
 
-Edge E[100000];
-vi g[1000];
-int dist[1000], q[1000], it[10000];
+Edge E[maxedges];
+vi g[maxnodes];
+int dist[maxnodes], q[maxnodes], it[maxnodes];
 int En, n, S, T, m, B, D, N;
 
 void addEdge(int u, int v, int c){
@@ -48,7 +51,7 @@ void addEdge(int u, int v, int c){
 	g[v].pb(En - 1);
 }
        
-bool Bfs() {
+bool bfs_dinic() {
 	for (int i = 0; i < N; ++i) 
 		dist[i] = -1;
 
@@ -70,7 +73,7 @@ bool Bfs() {
 	
 }
 
-int Dfs(int v, int flow) {
+int dfs_dinic(int v, int flow) {
 	if (!flow) return 0;
 	if (v == T) return flow;
 
@@ -78,7 +81,7 @@ int Dfs(int v, int flow) {
 		Edge &e = E[g[v][i]];
 	
 		if (e.c - e.f <= 0 || dist[e.from] + 1 != dist[e.to]) continue;
-		int push = Dfs(e.to, min(flow, e.c - e.f));
+		int push = dfs_dinic(e.to, min(flow, e.c - e.f));
 		if (push) {
 			E[g[v][i]].f += push;
 			E[g[v][i] ^ 1].f -= push;
@@ -92,24 +95,28 @@ int Dfs(int v, int flow) {
 
 int maxFlow() {
 	int flow = 0;
-	while (Bfs()) {
+	while (bfs_dinic()) {
 		memset(it, 0, sizeof(it[0]) * N);
 		for(;;) {
-			int push = Dfs(S, (int)1e9);
+			int push = dfs_dinic(S, inf);
 			if (!push) break;
 			flow += push;
 		}
 	}
 	return flow;
 }
+void init_flow() {
+	En = 0;
+	for (int i = 0; i < N; ++i)
+		g[i].clear();
+}
+
 void Solve() {
 
 	scanf("%d", &n);
-	N = 2 * n + 2;
-
-	for (int i = 0; i < N; ++i) 
-		g[i].clear();
-	En = 0;
+	N = 2 * n + 2; // CHANGE
+	S = 0, T = N - 1; // CHANGE
+	init_flow();
 
 	for (int i = 0; i < n; ++i) {
 		int c;
