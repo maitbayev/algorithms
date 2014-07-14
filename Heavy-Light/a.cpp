@@ -48,9 +48,6 @@ struct IntervalTree {
             pos[A[i]] = i;       
 
         T.resize(4 * N);
-        //DELETE ME:
-        for (int i = 0; i < T.size(); ++i)
-            T[i] = Tree();
     }
     
     void Push(int v, int sl, int sr) {
@@ -156,8 +153,7 @@ int query(int v, int par, char c) {
     int ans = 0;
 
     while (v != par) {
-        int le = pos[v];
-        
+        int le = pos[v]; 
         if (wh[v] == wh[par]) {
             int ri = pos[par] - 1;
             if (c == 'P')
