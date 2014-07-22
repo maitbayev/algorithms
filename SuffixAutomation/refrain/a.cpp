@@ -35,7 +35,6 @@ void SA_add(char ch,int pos)
 	for (;p != -1 && st[p].next[ch] == -1; p = st[p].suff)
 		st[p].next[ch] = nv;
 
-    gets(s);
 	if (p == -1) st[nv].suff = 0; else
 	{
 		int q = st[p].next[ch];
