@@ -67,12 +67,31 @@ struct Primes {
 	}
 };
 
+void checkPrimes(int n, vector<int> ans) {
+	Primes P = Primes(n);
+	(void)P;
+	assert (ans.size() == P.primesn);
+	for (size_t i = 0; i < ans.size(); ++i) {
+		assert (ans[i] == P.primes[i]);
+	}
+
+	assert (P.isPrime(ans.back()));
+	assert (P.isPrime(ans.back() + 1) == false);
+}
+
+void checkLeastPrime(int n, vector<int> ans) {
+	Primes P = Primes(n);
+	(void)P;
+
+	for (size_t i = 2; i < ans.size(); ++i) {
+		assert (ans[i] == P.primes[P.leastPrime[i]]);
+	}
+}
+
 int main() {
-	Primes P = Primes(10);
-	assert (P.primesn == 4);
-	assert (P.primes[0] == 2);
-	assert (P.primes[1] == 3);
-	assert (P.primes[1] == 5);
-	assert (P.primes[1] == 7);
+	checkPrimes(20, {2, 3, 5, 7, 11, 13, 17, 19});
+	checkLeastPrime(20,
+			{-1, -1, 2, 3, 2, 5, 2, 7, 2, 3,
+			 2, 11, 2, 13, 2, 3, 2, 17, 2, 19, 2});
 	return 0;
 }
