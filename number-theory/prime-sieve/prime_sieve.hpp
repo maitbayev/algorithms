@@ -33,4 +33,14 @@ struct PrimeSieve {
 		}
 		return primes;
 	}
+
+	vector<int> getPrimes(int count) {
+		vector<int> primes;
+		primes.reserve(count);
+		for (int i = 2; i <= n && (int)primes.size() < count; ++i) if (bit(i)) {
+			primes.push_back(i);
+		}
+		assert(primes.size() == count);
+		return primes;
+	}
 };
