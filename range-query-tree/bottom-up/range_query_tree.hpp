@@ -46,5 +46,9 @@ struct RangeQueryTree {
 	static RangeQueryTree* Max(int *a, int n) {
 		return new RangeQueryTree(a, n, [](int a, int b) { return max(a, b); });
 	}
+
+	static RangeQueryTree* Sum(int *a, int n) {
+		return new RangeQueryTree(a, n, [](int a, int b) { return a + b; } );
+	}
 };
 
