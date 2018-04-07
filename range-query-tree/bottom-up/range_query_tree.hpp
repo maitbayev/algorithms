@@ -12,7 +12,7 @@ struct RangeQueryTree {
 		t = new int[n + n];
 		for (int i = 0; i < n; ++i)
 			t[i + n] = a[i];
-		for (int i = n - 1; i >= 0; --i)
+		for (int i = n - 1; i >= 1; --i)
 			t[i] = binOp(t[i + i], t[i + i + 1]);
 	}
 
