@@ -33,3 +33,10 @@ if (auto value = get_optional_value()) {
    - or a time.
 - `std::mt19937` - is a pseudo-random generator of 32-bit numbers.
 - `std::uniform_int_distribution<int>` - uniform discrete distribution. An instance of `std::mt19937` must passed.
+
+## sample
+```
+std::random_device rd();
+std::mt19937 rng(rd());
+std::sample(in.begin(), in.end(), std::back_inserter(out), 5, rng);
+```
