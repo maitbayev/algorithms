@@ -23,3 +23,13 @@ if (auto value = get_optional_value()) {
 
 - `nullopt` used for the absent value.
 - `value_or` is useful for getting the value or the specified value.
+
+## list
+- `list::splice` concatenates two lists in `O(1)` time, without any copying of data.
+- `list::insert` inserts elements by copying elements in `O(n)` time.
+
+## random
+- `std::random_device` can be used to seed a random number generator.
+   - or a time.
+- `std::mt19937` - is a pseudo-random generator of 32-bit numbers.
+- `std::uniform_int_distribution<int>` - uniform discrete distribution. An instance of `std::mt19937` must passed.
