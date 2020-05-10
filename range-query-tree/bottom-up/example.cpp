@@ -6,8 +6,8 @@ int main() {
 	int n = 4;
 	int a[] = {1, 2, 1, 4};
 	auto max_query = RangeQueryTree::Max(a, n);
-	cout << max_query->calc(1, 3) << endl;
+	cout << max_query->Query(1, 3) << endl;
 	auto sum_query = RangeQueryTree::Sum(a, n);
-	cout << sum_query->calc(1, 3) << endl;
+	cout << sum_query->Query(1, 3) << endl;
 
 }
