@@ -8,6 +8,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'rust-lang/rust.vim'
 call vundle#end()            " required
 
 filetype plugin indent on    " required
@@ -39,6 +40,7 @@ endif
 au filetype cpp nnoremap <F9> :w <bar> exec '!g++ '.shellescape('%').'&& ./a.out'<CR>
 
 "YouCompleteMe
+"let g:ycm_extra_conf_globlist = ['~/Training/*']
 let g:ycm_global_ycm_extra_conf = '~/Training/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
@@ -52,6 +54,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" rust.vim
+let g:rustfmt_autosave = 1
+"let g:syntastic_rust_checkers = ['rustc']
 
 "diable arrow keys in command mode
 no <left> <nop>
