@@ -7,8 +7,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ycm-core/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'rust-lang/rust.vim'
+Plugin 'tpope/vim-commentary'
 call vundle#end()            " required
 
 filetype plugin indent on    " required
@@ -31,7 +31,9 @@ set laststatus=2
 set mousefocus 
 set mouse=a
 set backspace=indent,eol,start
-
+set foldmethod=marker
+"Syncronizes copy-paste with OS.  
+set clipboard+=unnamed
 "opens a file at the same place I left off at.
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -39,25 +41,35 @@ endif
 
 au filetype cpp nnoremap <F9> :w <bar> exec '!g++ '.shellescape('%').'&& ./a.out'<CR>
 
+"Comment
+autocmd FileType cpp setlocal commentstring=//\ %s
+
 "YouCompleteMe
 "let g:ycm_extra_conf_globlist = ['~/Training/*']
 let g:ycm_global_ycm_extra_conf = '~/Training/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<Enter>']
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_goto_buffer_command = 'split'
+command FixIt YcmCompleter FixIt
+command GoTo YcmCompleter GoTo
+command -nargs=1 Refactor YcmCompleter RefactorRename <args>
+
 
 "syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"Disable syntastic for cpp
+"let g:syntastic_cpp_checkers = []
 
 " rust.vim
 let g:rustfmt_autosave = 1
-"let g:syntastic_rust_checkers = ['rustc']
 
 "diable arrow keys in command mode
 no <left> <nop>
